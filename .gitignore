@@ -6,3 +6,5 @@ __pycache__/
 
 # Data pipeline intermediates — keep built data, ignore raw cache
 data/street_names.json
+missing_wiki.md
+missing_wiki.csv
