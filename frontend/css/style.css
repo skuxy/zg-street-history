@@ -1,0 +1,226 @@
+/* ============================================================
+   Zagreb Street History — dark theme
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:           #13151a;
+  --surface:      #1c1f27;
+  --surface2:     #252930;
+  --border:       #2e3340;
+  --accent:       #e8a838;
+  --accent-dim:   #a07020;
+  --text:         #e0e2e8;
+  --text-muted:   #8891a4;
+  --header-h:     52px;
+  --panel-w:      400px;
+  --radius:       8px;
+  --transition:   0.25s ease;
+}
+
+html, body { height: 100%; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, sans-serif; font-size: 14px; line-height: 1.5; overflow: hidden; }
+
+/* ── Header ─────────────────────────────────────────────── */
+
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--header-h);
+  display: flex; align-items: center; gap: 16px;
+  padding: 0 20px;
+  background: rgba(19,21,26,0.92);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 16px; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--accent);
+}
+
+.hint {
+  font-size: 13px; color: var(--text-muted);
+}
+
+/* ── App layout ─────────────────────────────────────────── */
+
+#app {
+  position: fixed;
+  top: var(--header-h); left: 0; right: 0; bottom: 0;
+  display: flex;
+}
+
+#map { flex: 1; }
+
+/* ── Info Panel ─────────────────────────────────────────── */
+
+.panel {
+  width: var(--panel-w);
+  flex-shrink: 0;
+  background: var(--surface);
+  border-left: 1px solid var(--border);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transition: width var(--transition), opacity var(--transition);
+  position: relative;
+}
+
+.panel--hidden {
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  border-left: none;
+}
+
+#panel-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 28px; height: 28px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 50%; cursor: pointer; font-size: 16px;
+  color: var(--text-muted);
+  transition: color var(--transition), background var(--transition);
+  z-index: 10;
+}
+#panel-close:hover { color: var(--text); background: var(--border); }
+
+#panel-content { padding: 20px; }
+
+/* ── Street name ────────────────────────────────────────── */
+
+.street-name-wrap {
+  display: flex; align-items: flex-start; gap: 10px; flex-wrap: wrap;
+  margin-bottom: 20px; padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+#street-name {
+  font-size: 22px; font-weight: 700; color: var(--accent);
+  flex: 1; min-width: 0;
+}
+
+.badge {
+  display: inline-flex; align-items: center;
+  font-size: 11px; padding: 3px 8px;
+  border-radius: 99px; text-decoration: none; font-weight: 600;
+  white-space: nowrap; margin-top: 4px;
+  border: 1px solid;
+}
+.badge--wikidata {
+  color: #a89b6e; border-color: #a89b6e40;
+  background: #a89b6e12;
+}
+.badge--wikidata:hover { background: #a89b6e22; }
+
+/* ── Section titles ─────────────────────────────────────── */
+
+.section-title {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+section + section { margin-top: 24px; }
+
+/* ── Person card ────────────────────────────────────────── */
+
+.person-card {
+  display: flex; gap: 12px; margin-bottom: 12px;
+}
+
+.person-image {
+  width: 72px; height: 72px;
+  object-fit: cover; border-radius: var(--radius);
+  border: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.person-name {
+  font-size: 16px; font-weight: 700; color: var(--text);
+  margin-bottom: 4px;
+}
+
+.person-desc {
+  font-size: 13px; color: var(--text-muted); font-style: italic;
+}
+
+/* ── Summary text ───────────────────────────────────────── */
+
+.summary-text {
+  font-size: 13px; line-height: 1.65; color: var(--text);
+  margin-bottom: 12px;
+  /* Limit to ~5 lines with a fade */
+  display: -webkit-box;
+  -webkit-line-clamp: 8;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Wiki links ─────────────────────────────────────────── */
+
+.wiki-links {
+  display: flex; gap: 8px; flex-wrap: wrap;
+}
+
+.wiki-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600;
+  color: var(--accent); text-decoration: none;
+  padding: 4px 10px; border-radius: var(--radius);
+  border: 1px solid var(--accent-dim);
+  background: transparent;
+  transition: background var(--transition);
+}
+.wiki-link:hover { background: rgba(232,168,56,0.1); }
+.wiki-link img { width: 14px; height: 14px; }
+
+/* ── No-data / loading ──────────────────────────────────── */
+
+.no-data {
+  font-size: 13px; color: var(--text-muted); font-style: italic;
+  margin-top: 12px;
+}
+
+.loading {
+  display: flex; align-items: center; gap: 10px;
+  color: var(--text-muted); margin-top: 12px;
+}
+
+.spinner {
+  width: 16px; height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── MapLibre overrides ─────────────────────────────────── */
+
+.maplibregl-popup-content {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 13px;
+  padding: 8px 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.maplibregl-popup-tip {
+  border-top-color: var(--surface) !important;
+  border-bottom-color: var(--surface) !important;
+}
+
+.maplibregl-ctrl-attrib { font-size: 10px; }
+
+/* ── Responsive ─────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  :root { --panel-w: 100vw; }
+  .panel:not(.panel--hidden) {
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 50;
+  }
+}

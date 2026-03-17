@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zagreb Street History</title>
+
+  <!-- MapLibre GL JS -->
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <header>
+    <span class="logo">Zagreb Street History</span>
+    <span class="hint">Hover over a street to learn its story</span>
+  </header>
+
+  <div id="app">
+    <div id="map"></div>
+
+    <aside id="panel" class="panel panel--hidden">
+      <button id="panel-close" aria-label="Close">&times;</button>
+
+      <div id="panel-content">
+        <div class="street-name-wrap">
+          <h1 id="street-name"></h1>
+          <a id="street-wikidata-link" class="badge badge--wikidata" target="_blank" rel="noopener" style="display:none">Wikidata</a>
+        </div>
+
+        <!-- Named after section -->
+        <section id="person-section" style="display:none">
+          <h2 class="section-title">Named after</h2>
+          <div class="person-card">
+            <img id="person-image" class="person-image" alt="" style="display:none" />
+            <div class="person-info">
+              <p id="person-name" class="person-name"></p>
+              <p id="person-desc" class="person-desc"></p>
+            </div>
+          </div>
+          <div id="person-summary-wrap">
+            <p id="person-summary" class="summary-text"></p>
+            <div class="wiki-links">
+              <a id="person-wiki-hr" class="wiki-link" target="_blank" rel="noopener" style="display:none">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_svg_logo.svg/16px-Wikipedia_svg_logo.svg.png" alt="" />
+                Croatian Wikipedia
+              </a>
+              <a id="person-wiki-en" class="wiki-link" target="_blank" rel="noopener" style="display:none">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_svg_logo.svg/16px-Wikipedia_svg_logo.svg.png" alt="" />
+                English Wikipedia
+              </a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Street article section -->
+        <section id="street-section" style="display:none">
+          <h2 class="section-title">About this street</h2>
+          <p id="street-summary" class="summary-text"></p>
+          <div class="wiki-links">
+            <a id="street-wiki-hr" class="wiki-link" target="_blank" rel="noopener" style="display:none">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_svg_logo.svg/16px-Wikipedia_svg_logo.svg.png" alt="" />
+              Croatian Wikipedia
+            </a>
+            <a id="street-wiki-en" class="wiki-link" target="_blank" rel="noopener" style="display:none">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Wikipedia_svg_logo.svg/16px-Wikipedia_svg_logo.svg.png" alt="" />
+              English Wikipedia
+            </a>
+          </div>
+        </section>
+
+        <!-- No data state -->
+        <p id="no-data" class="no-data" style="display:none">
+          No Wikipedia information found for this street.
+        </p>
+
+        <!-- Loading state -->
+        <div id="loading" class="loading" style="display:none">
+          <div class="spinner"></div>
+          <span>Looking up history...</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <script src="/static/js/config.js"></script>
+  <script src="/static/js/map.js"></script>
+</body>
+</html>
