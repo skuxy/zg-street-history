@@ -11,7 +11,7 @@
  * Leave it empty while developing locally.
  */
 
-const BACKEND_URL = '';   // e.g. 'https://zg-street-history.onrender.com'
+const BACKEND_URL = 'https://zg-street-history.duckdns.org';
 
 function getApiBase() {
   const { hostname } = window.location;
